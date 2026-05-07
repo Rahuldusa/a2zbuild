@@ -1,4 +1,4 @@
-name: Static Deploy
+name: A2Z React Deploy
 
 on:
   push:
@@ -24,11 +24,11 @@ jobs:
           rsync -avz --delete \
           -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
           ./ \
-          deploy@${{ secrets.SERVER_IP }}:/var/www/html/
+          deploy@${{ secrets.SERVER_IP }}:/var/www/a2z-react/
 
-      - name: Restart Nginx
+      - name: Verify Deployment
         run: |
           ssh -i ~/.ssh/id_ed25519 \
           -o StrictHostKeyChecking=no \
           deploy@${{ secrets.SERVER_IP }} \
-          "sudo systemctl restart nginx"
+          "ls -la /var/www/a2z-react"
